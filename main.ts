@@ -17,9 +17,10 @@ const LETTER = "A"; // A for coffee.
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", LETTER, "utf8");
 
-// Guard: the gate accepts exactly one A–Z character, so verify the file
-// we just wrote is exactly that before reporting success.
+// Guard: the gate accepts exactly one letter, and this entry is the
+// letter A for coffee — so verify the file we just wrote is exactly
+// LETTER, not merely any A-Z character.
 const written = readFileSync("/output/entry.txt", "utf8");
-if (!/^[A-Z]$/.test(written)) {
-  throw new Error(`entry.txt must hold exactly one letter A-Z, got ${JSON.stringify(written)}`);
+if (written !== LETTER) {
+  throw new Error(`entry.txt must hold exactly ${JSON.stringify(LETTER)}, got ${JSON.stringify(written)}`);
 }
